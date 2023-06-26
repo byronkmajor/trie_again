@@ -110,9 +110,11 @@ class BoggleSolver:
         #     print(" ".join("X" if visited else "." for visited in visited_row))
         # print("\n")
         
+        # The method `depth_field_search(self, row, col, current_word)` is a Depth-First Search (DFS) algorithm applied to a Boggle game board. DFS is a type of graph or tree traversal that goes as deep as possible before backtracking.
         if row < 0 or row >= self.rows or col < 0 or col >= self.cols or self.visited[row][col]:
             return
 
+        # Boundary and visitation check. If the current position (defined by the row and column) is outside the boundaries of the game board or if the position has already been visited, the function will return and not proceed further.
         current_word += self.board[row][col]
         if not self.trie.starts_with_prefix(current_word):
             return
@@ -124,8 +126,10 @@ class BoggleSolver:
             self.found_words.add(current_word)
 
         self.visited[row][col] = True
+        # line marks the current position as visited so that we don't visit it again in this search path.
         directions = [(0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
 
+        # The eight directions correspond to the eight surrounding cells in a 2D grid (up, down, left, right, and four diagonals).  
         for dr, dc in directions:
             self.depth_field_search(row + dr, col + dc, current_word)
 
